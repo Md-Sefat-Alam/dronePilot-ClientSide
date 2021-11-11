@@ -6,47 +6,27 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, si
 firebaseInit();
 
 const useFirebase = () => {
-    const [loginUser, setLoginUser] = useState({});
+    const [user, setUser] = useState({});
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(true);
-    const [emailPass, setEmailPass] = useState({});
 
     const auth = getAuth();
-    const email = emailPass?.email;
-    const password = emailPass?.password;
 
-    const createUserUsingEmailPassword = () => {
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                // serLoginUser(userCredential.user)
-                alert('Register Successful')
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                setError(errorCode)
-            });
+
+    const createUserUsingEmailPassword = (email, password) => {
+        return createUserWithEmailAndPassword(auth, email, password)
     }
-    const signInUsingEmailPassword = () => {
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in
-                setLoginUser(userCredential.user)
-                alert('Login Successful')
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                setError(errorCode)
-            });
+    const signInUsingEmailPassword = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password)
     }
 
     useEffect(() => {
         const unsubscribed = onAuthStateChanged(auth, user => {
             if (user) {
-                setLoginUser(user)
+                setUser(user)
             }
             else {
-                setLoginUser({})
+                setUser({})
             }
             setIsLoading(false)
         })
@@ -55,22 +35,26 @@ const useFirebase = () => {
 
     const logOut = () => {
         signOut(auth).then(() => {
+            setIsLoading(true);
             // Sign-out successful.
-            alert('logout successful')
+            setError('logout successful');
 
         }).catch((error) => {
             // An error happened.
-        });
+            setError(error.code)
+        }).finally(() => setIsLoading(false));
     }
 
     return {
         createUserUsingEmailPassword,
         signInUsingEmailPassword,
-        setEmailPass,
-        loginUser,
+        setError,
+        user,
         error,
         isLoading,
-        logOut
+        setIsLoading,
+        logOut,
+        setUser
     }
 };
 

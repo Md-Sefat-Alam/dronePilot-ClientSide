@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import useAuth from '../../../Hooks/useAuth';
 
 const Nav = () => {
+    const { user, logOut } = useAuth();
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
@@ -25,22 +27,46 @@ const Nav = () => {
                         <div>
                             <NavLink activeClassName="active" className="nav-link" to='/dashboard'>Dashboard</NavLink>
                         </div>
-                        <div>
-                            <NavLink to='/login' activeClassName="userShow" style={{
-                                width: '50px',
-                                height: '50px',
-                                borderRadius: '50%',
-                                overflow: 'hidden',
-                                display: 'inline-block',
-                                backgroundColor: 'lightgray',
-                                textAlign: 'center',
-                                verticalAlign: 'center',
-                                cursor: 'pointer',
-                                textDecoration: 'none',
-                            }}>
-                                {/* <NavLink activeClassName="userShow" to='/login'>Login</NavLink> */}
-                                <i class="fas fa-sign-in-alt fs-1 mt-1"></i>
-                            </NavLink>
+                        <div className='' style={{ overflow: 'hidden' }}>
+                            {
+                                user.accessToken ? <div className='d-flex gap-3'>
+                                    <div activeClassName="userInfo" style={{
+                                        width: '50px',
+                                        height: '50px',
+                                        borderRadius: '50%',
+                                        overflow: 'hidden',
+                                        display: 'inline-block',
+                                        backgroundColor: 'lightgray',
+                                        textAlign: 'center',
+                                        verticalAlign: 'center',
+                                        cursor: 'pointer',
+                                        textDecoration: 'none',
+                                    }}>
+                                        {
+                                            user.photoURL ? <img className='img-fluid' src={user.photoURL} alt='user' /> : <img className='img-fluid' src='https://image.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg' alt='user' />
+                                        }
+
+                                    </div>
+                                    <button onClick={logOut} className='btn btn-danger btn-sm text-white'>Log out</button>
+
+                                </div>
+                                    :
+                                    <NavLink to='/login' activeClassName="userShow" style={{
+                                        width: '50px',
+                                        height: '50px',
+                                        borderRadius: '50%',
+                                        overflow: 'hidden',
+                                        display: 'inline-block',
+                                        backgroundColor: 'lightgray',
+                                        textAlign: 'center',
+                                        verticalAlign: 'center',
+                                        cursor: 'pointer',
+                                        textDecoration: 'none',
+                                    }}>
+                                        {/* <NavLink activeClassName="userShow" to='/login'>Login</NavLink> */}
+                                        <i class="fas fa-sign-in-alt fs-1 mt-1"></i>
+                                    </NavLink>
+                            }
                         </div>
                     </div>
                 </div>

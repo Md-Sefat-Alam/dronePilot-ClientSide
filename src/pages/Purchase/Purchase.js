@@ -5,6 +5,7 @@ const Purchase = () => {
     return (
         <div>
             <Nav></Nav>
+            purchase page
         </div>
     );
 };

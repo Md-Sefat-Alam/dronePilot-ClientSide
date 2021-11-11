@@ -1,10 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Register.css'
 import { Link } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Nav from '../Shared/Nav/Nav';
+import useAuth from '../../Hooks/useAuth';
+import GoogleLogIn from '../Login/GoogleLogIn';
+import { useLocation, useHistory } from 'react-router-dom';
+
 
 const Register = () => {
+    const [email, setEmail] = useState('');
+    const [pass, setPass] = useState('');
+    const { createUserUsingEmailPassword, setError, setIsLoading } = useAuth();
+
+    const location = useLocation();
+    const history = useHistory();
+    const redirect_uri = location?.state?.from || '/home';
+
+    const handleEmail = (e) => {
+        setEmail(e.target.value);
+    }
+    const handlePass = (e) => {
+        if (e.target.value.length < 6) {
+            setPass('')
+        } else {
+            setPass(e.target.value);
+        }
+    }
+
+
+    const handleRegistration = (e) => {
+        e.preventDefault();
+        if (pass && email) {
+            createUserUsingEmailPassword(email, pass)
+                .then((userCredential) => {
+                    // Signed in
+                    alert('Register Successful')
+                    history.push(redirect_uri)
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    console.log(errorCode)
+                    setError(errorCode)
+                }).finally(() => setIsLoading(false));
+        }
+        else {
+            alert('Set Strong Password');
+            setEmail('');
+            setPass('');
+        }
+    }
     return (
         <>
             <Nav></Nav>
@@ -14,21 +59,23 @@ const Register = () => {
                     <section className='py-3'>
                         <div className=''>
                             <h5 className='header'>Register</h5>
-                            <form>
+                            <form onSubmit={handleRegistration}>
                                 <div className="input-group flex-nowrap my-4" style={{ minWidth: '300px' }}>
                                     <span className="input-group-text" id="addon-wrapping">Email</span>
-                                    <input required type="email" className="form-control" placeholder="" aria-label="Username" aria-describedby="addon-wrapping" />
+                                    <input onBlur={handleEmail} required type="email" className="form-control" placeholder="" aria-label="Username" aria-describedby="addon-wrapping" />
                                 </div>
                                 <div className="input-group flex-nowrap my-4" style={{ minWidth: '300px' }}>
                                     <span className="input-group-text" id="addon-wrapping2">Password</span>
-                                    <input required type="password" className="form-control" placeholder="" aria-label="Username" aria-describedby="addon-wrapping" />
+                                    <input onBlur={handlePass} required type="password" className="form-control" placeholder="" aria-label="Username" aria-describedby="addon-wrapping" />
                                 </div>
                                 <div>
                                     <input type='submit' value='Register' className='btn btn-primary' />
                                 </div>
                             </form>
                             <hr />
-                            <p className='text-dark'>All ready have an account? <Link to='/login' className='inline'>Login</Link></p>
+                            <p className='text-white'>All ready have an account? <Link to='/login' className='inline'>Login</Link></p>
+                            <hr />
+                            <GoogleLogIn></GoogleLogIn>
                         </div>
                     </section>
                     {/* end products section */}
