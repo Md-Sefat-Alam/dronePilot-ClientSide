@@ -1,0 +1,16 @@
+.footer{
+    background-image: linear-gradient(to top, green, white);
+}
+.footer-explore{
+    
+}
+.footer-explore li a{
+    text-decoration: none;
+    color: black;
+}
+.footer-explore li a:hover{
+    color: gray;
+}
+.heading-footer{
+    color: gray;
+}
