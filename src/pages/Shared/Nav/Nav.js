@@ -25,7 +25,7 @@ const Nav = () => {
                     </ul>
                     <div className='d-flex gap-5 text-white align-items-center'>
                         <div>
-                            <NavLink activeClassName="active" className="nav-link" to='/dashboard'>Dashboard</NavLink>
+                            <NavLink activeClassName="active" className="nav-link" to='/dashboard/my-orders'>Dashboard</NavLink>
                         </div>
                         <div className='' style={{ overflow: 'hidden' }}>
                             {

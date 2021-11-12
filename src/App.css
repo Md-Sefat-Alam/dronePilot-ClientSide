@@ -30,3 +30,16 @@ body{
 .navbar{
     /* background-color: rgba(0,0,0,0.5) !important; */
 }
+
+.update-later{
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-items: center;
+}
+.update-later p{
+    color: white;
+    background-color: red;
+    padding: 10px;
+}

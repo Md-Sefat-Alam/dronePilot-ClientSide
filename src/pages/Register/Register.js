@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './Register.css'
 import { Link } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
@@ -9,6 +10,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 
 
 const Register = () => {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const { createUserUsingEmailPassword, setError, setIsLoading } = useAuth();
@@ -19,6 +21,11 @@ const Register = () => {
 
     const handleEmail = (e) => {
         setEmail(e.target.value);
+    }
+    const handleName = (e) => {
+        if (e.target.value) {
+            setName(e.target.value)
+        }
     }
     const handlePass = (e) => {
         if (e.target.value.length < 6) {
@@ -35,6 +42,19 @@ const Register = () => {
             createUserUsingEmailPassword(email, pass)
                 .then((userCredential) => {
                     // Signed in
+                    const userIdentity = userCredential?.user?.uid;
+                    const url = 'http://localhost:7000'
+
+                    axios.post(`${url}/add-user`, { name, email, userIdentity })
+                        .then(res => {
+                            console.log(res);
+                            if (res.data.insertedId) {
+                                alert('Added successfully');
+                            }
+                        })
+                    e.target.reset();
+
+
                     alert('Register Successful')
                     history.push(redirect_uri)
                 })
@@ -46,7 +66,6 @@ const Register = () => {
         }
         else {
             alert('Set Strong Password');
-            setEmail('');
             setPass('');
         }
     }
@@ -61,12 +80,16 @@ const Register = () => {
                             <h5 className='header'>Register</h5>
                             <form onSubmit={handleRegistration}>
                                 <div className="input-group flex-nowrap my-4" style={{ minWidth: '300px' }}>
+                                    <span className="input-group-text" id="addon-wrapping">Name</span>
+                                    <input onChange={handleName} required type="text" maxLength='42' className="form-control" placeholder="" aria-label="Username" aria-describedby="addon-wrapping" />
+                                </div>
+                                <div className="input-group flex-nowrap my-4" style={{ minWidth: '300px' }}>
                                     <span className="input-group-text" id="addon-wrapping">Email</span>
-                                    <input onBlur={handleEmail} required type="email" className="form-control" placeholder="" aria-label="Username" aria-describedby="addon-wrapping" />
+                                    <input onChange={handleEmail} required type="email" className="form-control" placeholder="" aria-label="Username" aria-describedby="addon-wrapping" />
                                 </div>
                                 <div className="input-group flex-nowrap my-4" style={{ minWidth: '300px' }}>
                                     <span className="input-group-text" id="addon-wrapping2">Password</span>
-                                    <input onBlur={handlePass} required type="password" className="form-control" placeholder="" aria-label="Username" aria-describedby="addon-wrapping" />
+                                    <input onChange={handlePass} required type="password" className="form-control" placeholder="" aria-label="Username" aria-describedby="addon-wrapping" />
                                 </div>
                                 <div>
                                     <input type='submit' value='Register' className='btn btn-primary' />
