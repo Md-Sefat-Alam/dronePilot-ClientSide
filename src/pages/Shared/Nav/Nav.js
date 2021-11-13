@@ -3,7 +3,12 @@ import { Link, NavLink } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
 
 const Nav = () => {
-    const { user, logOut } = useAuth();
+    const { user, logOut, admin } = useAuth();
+
+    let linkGo = '/dashboard/my-orders';
+    if (admin) {
+        linkGo = '/dashboard/make-admin'
+    }
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
@@ -26,7 +31,7 @@ const Nav = () => {
                     <div className='d-flex gap-5 text-white align-items-center'>
                         {
                             user.accessToken && <div>
-                                <NavLink activeClassName="active" className="nav-link" to='/dashboard/my-orders'>Dashboard</NavLink>
+                                <NavLink activeClassName="active" className="nav-link" to={linkGo}>Dashboard</NavLink>
                             </div>
                         }
                         <div className='' style={{ overflow: 'hidden' }}>

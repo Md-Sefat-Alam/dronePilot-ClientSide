@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import useAuth from '../../../Hooks/useAuth';
+import ShowOrders from '../ShowOrders/ShowOrders';
 
 const ManageAllOrders = () => {
+    const { user } = useAuth();
+    const [myOrders, setMyOrders] = useState([]);
+
+    useEffect(() => {
+        const url = `http://localhost:7000/orders`
+        fetch(url)
+            .then(res => res.json())
+            .then(data => setMyOrders(data))
+        console.log(myOrders)
+    }, [user])
+
     return (
         <div>
-            manage all orders
+            <h4 className="header">Total Orders: {myOrders.length}</h4>
+
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+
+                {
+                    myOrders.map(order => <ShowOrders fromManageAllOrders='true' key={order._id} order={order}></ShowOrders>)
+                }
+
+            </div>
         </div>
     );
 };

@@ -37,7 +37,7 @@ const Home = () => {
                         <h5 className='header'>Products</h5>
                         <div className="row row-cols-1 row-cols-md-3 g-1">
                             {
-                                product6.map(product => <Products key={product._key} product={product}></Products>)
+                                product6.map(product => <Products key={product._key} product={product} fromManageProduct='false'></Products>)
                             }
                         </div>
                     </section>
