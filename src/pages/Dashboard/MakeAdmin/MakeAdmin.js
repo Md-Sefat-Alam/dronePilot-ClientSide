@@ -6,7 +6,7 @@ const MakeAdmin = () => {
     const { user } = useAuth();
     const [userData, setUserData] = useState([])
     useEffect(() => {
-        const url = 'http://localhost:7000/users';
+        const url = 'https://hidden-taiga-02605.herokuapp.com/users';
         fetch(url)
             .then(res => res.json())
             .then(data => setUserData(data));
@@ -14,13 +14,13 @@ const MakeAdmin = () => {
 
     const makeAdminHandle = async (uid) => {
         console.log('hitted', uid)
-        const url = `http://localhost:7000/users/${uid}`;
+        const url = `https://hidden-taiga-02605.herokuapp.com/users/${uid}`;
         const res = await axios.put(url);
         console.log(res)
     }
     const removeAdminHandle = async (uid) => {
         console.log('hitted', uid)
-        const url = `http://localhost:7000/users/${uid}?remove=true`;
+        const url = `https://hidden-taiga-02605.herokuapp.com/users/${uid}?remove=true`;
         const res = await axios.put(url);
         console.log(res)
     }

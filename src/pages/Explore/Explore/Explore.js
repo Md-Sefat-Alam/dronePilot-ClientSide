@@ -5,7 +5,7 @@ import Nav from '../../Shared/Nav/Nav';
 const Explore = () => {
     const [products, setProducts] = useState([]);
 
-    const url = 'http://localhost:7000/products';
+    const url = 'https://hidden-taiga-02605.herokuapp.com/products';
 
     useEffect(() => {
         fetch(url)

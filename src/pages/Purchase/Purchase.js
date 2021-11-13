@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import Nav from '../Shared/Nav/Nav';
 import { useForm } from "react-hook-form";
 import axios from 'axios';
@@ -7,13 +7,15 @@ import useAuth from '../../Hooks/useAuth';
 
 
 const Purchase = () => {
+    const history = useHistory();
+
     const { id } = useParams();
     const [product, setProduct] = useState({});
-    const { user } = useAuth();
+    const { user, admin } = useAuth();
 
     const { _id, name, description, price, imgURL } = product;
 
-    const url = `http://localhost:7000/product/${id}`;
+    const url = `https://hidden-taiga-02605.herokuapp.com/product/${id}`;
 
     useEffect(() => {
         fetch(url)
@@ -30,17 +32,24 @@ const Purchase = () => {
 
         data.productId = _id;
         data.orderPerson = user.uid;
+        data.orderStatus = 'pending';
 
-        const url = 'http://localhost:7000/client-order';
+        if (admin) {
+            alert("admin user can't add Orders")
+        }
+        else {
+            const url = 'https://hidden-taiga-02605.herokuapp.com/client-order';
 
-        axios.post(`${url}`, data)
-            .then(res => {
-                console.log(res);
-                if (res.data.insertedId) {
-                    alert('Added successfully');
-                }
-            })
-        e.target.reset();
+            axios.post(`${url}`, data)
+                .then(res => {
+                    console.log(res);
+                    if (res.data.insertedId) {
+                        alert('Added successfully');
+                    }
+                    history.push('/dashboard/my-orders')
+                })
+            e.target.reset();
+        }
     };
 
     return (
@@ -81,7 +90,7 @@ const Purchase = () => {
                             </div>
                             <div className="col-3 col-md-1">
                                 <label for="clientMobile" className="form-label">Quantity</label>
-                                <input  {...register("quantity", { required: true })} type="number" min='0' defaultValue='1' className="form-control" id="clientMobile" placeholder="01700000000" />
+                                <input  {...register("quantity", { required: true })} type="number" min='0' defaultValue='1' className="form-control" id="clientMobile" placeholder="" />
                             </div>
                             <div className="col-12">
                                 <label for="description3" className="form-label">Address</label>

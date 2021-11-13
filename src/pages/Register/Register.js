@@ -43,13 +43,12 @@ const Register = () => {
                 .then((userCredential) => {
                     // Signed in
                     const userIdentity = userCredential?.user?.uid;
-                    const url = 'http://localhost:7000'
+                    const url = 'https://hidden-taiga-02605.herokuapp.com'
 
                     axios.post(`${url}/add-user`, { name, email, userIdentity })
                         .then(res => {
                             console.log(res);
                             if (res.data.insertedId) {
-                                alert('Added successfully');
                             }
                         })
                     e.target.reset();

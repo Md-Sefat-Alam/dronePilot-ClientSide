@@ -47,7 +47,7 @@ const useFirebase = () => {
     }
 
     useEffect(() => {
-        const url = `http://localhost:7000/user/${user.email}`
+        const url = `https://hidden-taiga-02605.herokuapp.com/user/${user.email}`
         fetch(url)
             .then(res => res.json())
             .then(data => setAdmin(data.admin))

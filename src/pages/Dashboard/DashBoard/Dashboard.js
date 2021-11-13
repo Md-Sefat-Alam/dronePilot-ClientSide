@@ -16,7 +16,7 @@ import {
     Link,
     useRouteMatch
 } from "react-router-dom";
-import Review from '../Review/Review';
+import DashboardReview from '../DashboardReview/DashboardReview';
 
 const Dashboard = () => {
     const { logOut, user, setIsLoading, admin } = useAuth();
@@ -25,7 +25,7 @@ const Dashboard = () => {
     const [userData, setUserData] = useState([])
 
     // useEffect(() => {
-    //     const url = 'http://localhost:7000/users'
+    //     const url = 'https://hidden-taiga-02605.herokuapp.com/users'
     //     fetch(url)
     //         .then(res => res.json())
     //         .then(data => {
@@ -36,7 +36,7 @@ const Dashboard = () => {
     const { uid } = user;
     useEffect(() => {
         // setIsLoading(true);
-        const url = `http://localhost:7000/users/${uid}`
+        const url = `https://hidden-taiga-02605.herokuapp.com/users/${uid}`
         fetch(url)
             .then(res => res.json())
             .then(data => {
@@ -145,7 +145,7 @@ const Dashboard = () => {
                                 <DashboardPay></DashboardPay>
                             </Route>
                             <Route path={`${path}/review`}>
-                                <Review></Review>
+                                <DashboardReview></DashboardReview>
                             </Route>
                             {
                                 admin && <>

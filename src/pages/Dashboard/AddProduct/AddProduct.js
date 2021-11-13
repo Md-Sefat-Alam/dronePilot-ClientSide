@@ -7,7 +7,7 @@ const AddProduct = () => {
     const onSubmit = (data, e) => {
         console.log(data)
 
-        const url = 'http://localhost:7000/add-product';
+        const url = 'https://hidden-taiga-02605.herokuapp.com/add-product';
 
         axios.post(`${url}`, data)
             .then(res => {
