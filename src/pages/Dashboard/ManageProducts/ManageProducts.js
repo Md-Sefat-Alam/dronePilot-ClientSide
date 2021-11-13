@@ -14,9 +14,10 @@ const ManageProducts = () => {
     return (
         <div className='wrap-full-width'>
             <div className='content-wrapper'>
-                <div className="row row-cols-1 row-cols-md-3 g-1">
+                <h4 className="header">Manage Products</h4>
+                <div className="row row-cols-1 row-cols-md-3 gy-4">
                     {
-                        products.map(product => <Products key={product._key} product={product} fromManageProduct='true'></Products>)
+                        products.map(product => <Products key={product._key} product={product} fromManageProduct={true}></Products>)
                     }
                 </div>
             </div>

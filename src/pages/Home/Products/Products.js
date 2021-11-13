@@ -30,7 +30,7 @@ const Products = ({ fromManageProduct, product }) => {
     }
     return (
         <div className="col">
-            <div className="card" style={{ width: "18rem" }}>
+            <div className="card px-2 rounded-4" style={{ width: "18rem" }}>
                 <img style={{ maxHeight: '200px' }} src={imgURL} className="card-img-top img-fluid" alt="..." />
                 <div className="card-body">
                     <h5 className="card-title text-dark">{name}</h5>

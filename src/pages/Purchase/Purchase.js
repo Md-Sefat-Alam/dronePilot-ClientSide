@@ -59,7 +59,7 @@ const Purchase = () => {
                 <div className='content-wrapper text-dark'>
                     {/* product detail section */}
                     <section className='py-3'>
-                        <div className='d-flex justify-content-center'>
+                        <div className='d-flex flex-column flex-sm-row justify-content-center'>
                             <div>
                                 <img style={{ maxHeight: '350px' }} src={imgURL} className='img-fluid' alt='product img' />
                             </div>
