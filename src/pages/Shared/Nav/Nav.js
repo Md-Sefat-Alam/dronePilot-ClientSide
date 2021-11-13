@@ -19,14 +19,16 @@ const Nav = () => {
                         <li className="nav-item">
                             <NavLink activeClassName="active" to='/explore' className="nav-link">Explore</NavLink>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <NavLink activeClassName="active" to='/purchase' className="nav-link">Purchase</NavLink>
-                        </li>
+                        </li> */}
                     </ul>
                     <div className='d-flex gap-5 text-white align-items-center'>
-                        <div>
-                            <NavLink activeClassName="active" className="nav-link" to='/dashboard/my-orders'>Dashboard</NavLink>
-                        </div>
+                        {
+                            user.accessToken && <div>
+                                <NavLink activeClassName="active" className="nav-link" to='/dashboard/my-orders'>Dashboard</NavLink>
+                            </div>
+                        }
                         <div className='' style={{ overflow: 'hidden' }}>
                             {
                                 user.accessToken ? <div className='d-flex gap-3'>

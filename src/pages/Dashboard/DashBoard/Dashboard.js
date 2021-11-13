@@ -19,7 +19,7 @@ import {
 import Review from '../Review/Review';
 
 const Dashboard = () => {
-    const { logOut, user, setIsLoading } = useAuth();
+    const { logOut, user, setIsLoading, admin } = useAuth();
     let { path, url } = useRouteMatch();
 
     const [userData, setUserData] = useState([])
@@ -147,18 +147,22 @@ const Dashboard = () => {
                             <Route path={`${path}/review`}>
                                 <Review></Review>
                             </Route>
-                            <Route path={`${path}/manage-all-orders`}>
-                                <ManageAllOrders></ManageAllOrders>
-                            </Route>
-                            <Route path={`${path}/add-product`}>
-                                <AddProduct></AddProduct>
-                            </Route>
-                            <Route path={`${path}/make-admin`}>
-                                <MakeAdmin></MakeAdmin>
-                            </Route>
-                            <Route path={`${path}/manage-product`}>
-                                <ManageProducts></ManageProducts>
-                            </Route>
+                            {
+                                admin && <>
+                                    <Route path={`${path}/manage-all-orders`}>
+                                        <ManageAllOrders></ManageAllOrders>
+                                    </Route>
+                                    <Route path={`${path}/add-product`}>
+                                        <AddProduct></AddProduct>
+                                    </Route>
+                                    <Route path={`${path}/make-admin`}>
+                                        <MakeAdmin></MakeAdmin>
+                                    </Route>
+                                    <Route path={`${path}/manage-product`}>
+                                        <ManageProducts></ManageProducts>
+                                    </Route>
+                                </>
+                            }
                         </Switch>
                     </section>
                     {/* end products section */}

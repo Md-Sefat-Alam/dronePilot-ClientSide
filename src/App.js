@@ -32,7 +32,7 @@ function App() {
             <PrivetRoute path="/dashboard">
               <Dashboard></Dashboard>
             </PrivetRoute>
-            <PrivetRoute path="/purchase">
+            <PrivetRoute path="/purchase/:id">
               <Purchase></Purchase>
             </PrivetRoute>
             <Route path="/login">
