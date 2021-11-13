@@ -29,7 +29,7 @@ const ShowOrders = ({ order, fromManageAllOrders }) => {
     const handleShippingProduct = (productId) => {
         const confirmation = window.confirm('You Confirm Product Shipped?')
         if (confirmation) {
-            const url = `http://localhost:7000/orders-status/${productId}`;
+            const url = `https://hidden-taiga-02605.herokuapp.com/orders-status/${productId}`;
             axios.put(url)
                 .then(response => console.log(response))
                 .catch(error => {

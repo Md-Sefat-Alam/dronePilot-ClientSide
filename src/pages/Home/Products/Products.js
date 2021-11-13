@@ -15,7 +15,7 @@ const Products = ({ fromManageProduct, product }) => {
         const confirmation = window.confirm("Are you sure you want to Delete this Product?")
         if (confirmation) {
             // const url = `https://hidden-taiga-02605.herokuapp.com/products/${productId}`
-            const url = `http://localhost:7000/products/${productId}`
+            const url = `https://hidden-taiga-02605.herokuapp.com/products/${productId}`
             axios.delete(url)
                 .then(response => {
                     if (window.confirm('Deleted Successful. Want to Reload?')) {

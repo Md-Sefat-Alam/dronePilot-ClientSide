@@ -7,7 +7,7 @@ const ManageAllOrders = () => {
     const [myOrders, setMyOrders] = useState([]);
 
     useEffect(() => {
-        const url = `http://localhost:7000/orders`
+        const url = `https://hidden-taiga-02605.herokuapp.com/orders`
         fetch(url)
             .then(res => res.json())
             .then(data => setMyOrders(data))
